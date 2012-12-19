@@ -14,7 +14,11 @@ module Legato
   end
 
   def self.to_ga_string(str)
-    "#{$1}ga:#{$2}" if str.to_s.camelize(:lower) =~ /^(-)?(.*)$/
+    "#{$1}#{analytics_scope(str)}#{$2}" if str.to_s.camelize(:lower) =~ /^(-)?(.*)$/
+  end
+
+  def self.analytics_scope(str)
+    str.to_s.camelize(:lower) =~ /mcf:/ ? "" : "ga:"
   end
 
   def self.from_ga_string(str)
